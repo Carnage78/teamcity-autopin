@@ -14,6 +14,10 @@
           <source>../kotlin-dsl/AutoPin.xml</source>
           <outputDirectory>/kotlin-dsl/</outputDirectory>
       </file>
+      <file>
+          <source>../kotlin-dsl/AutoTag.xml</source>
+          <outputDirectory>/kotlin-dsl/</outputDirectory>
+      </file>
   </files>
   <moduleSets>
     <moduleSet>
