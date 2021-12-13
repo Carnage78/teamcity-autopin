@@ -23,10 +23,10 @@ public class AutoTagBuildServerListener extends BuildServerAdapter {
     }
 
     @Override
-    public void buildStarted(@NotNull SRunningBuild runningBuild) {
+    public void buildFinished(@NotNull SRunningBuild runningBuild) {
         User triggeringUser = runningBuild.getTriggeredBy().getUser();
-        for (SBuildFeatureDescriptor bfd : runningBuild.getBuildFeaturesOfType(AutoTagBuildFeature.TYPE)) {
-            String tag = bfd.getParameters().get(AutoTagBuildFeature.PARAM_TAG);
+        for (SBuildFeatureDescriptor bfd : runningBuild.getBuildType().getBuildFeaturesOfType(AutoTagBuildFeature.TYPE)) {
+            String tag = runningBuild.getValueResolver().resolve(bfd.getParameters()).get(AutoTagBuildFeature.PARAM_TAG);
 
             if (areTaggingConditionsMet(bfd.getParameters(), runningBuild)) {
                 BuildTagHelper.addTag(runningBuild, tag);
