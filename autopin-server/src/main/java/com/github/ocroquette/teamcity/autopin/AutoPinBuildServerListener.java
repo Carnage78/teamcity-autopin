@@ -50,9 +50,9 @@ public class AutoPinBuildServerListener extends BuildServerAdapter {
             BuildTagHelper.removeTag(finishedBuild, TAG_REQUEST_PINNING_INCLUDE_DEPENDENCIES);
         }
 
-        for (SBuildFeatureDescriptor bfd : finishedBuild.getBuildFeaturesOfType(AutoPinBuildFeature.TYPE)) {
+        for (SBuildFeatureDescriptor bfd : finishedBuild.getBuildType().getBuildFeaturesOfType(AutoPinBuildFeature.TYPE)) {
             if (arePinningConditionsMet(bfd.getParameters(), finishedBuild)) {
-                String comment = bfd.getParameters().get(AutoPinBuildFeature.PARAM_COMMENT);
+                String comment = finishedBuild.getValueResolver().resolve(bfd.getParameters()).get(AutoPinBuildFeature.PARAM_COMMENT);
                 finishedBuild.setPinned(true, triggeringUser, comment);
 
                 if (StringUtils.isTrue(bfd.getParameters().get(AutoPinBuildFeature.PARAM_PIN_DEPENDENCIES))) {
@@ -60,7 +60,7 @@ public class AutoPinBuildServerListener extends BuildServerAdapter {
                         buildHistory.findEntry(bp.getAssociatedBuild().getBuildId()).setPinned(true, triggeringUser, comment);
                     }
                 }
-                String tag = bfd.getParameters().get(AutoPinBuildFeature.PARAM_TAG);
+                String tag = finishedBuild.getValueResolver().resolve(bfd.getParameters()).get(AutoPinBuildFeature.PARAM_TAG);
 
                 if (StringUtils.isSet(tag)) {
                         BuildTagHelper.addTag(finishedBuild, tag);
