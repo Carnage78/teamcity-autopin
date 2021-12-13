@@ -15,7 +15,7 @@ import static com.github.ocroquette.teamcity.autopin.StringUtils.isSet;
 
 public class AutoTagBuildFeature extends BuildFeature {
 
-    public static final String TYPE = AutoTagBuildFeature.class.getName();
+    public static final String TYPE = "auto-tag";
 
     public static final String PARAM_BRANCH_PATTERN = "branch_pattern";
     public static final String PARAM_TAG = "tag";
