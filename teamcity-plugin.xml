@@ -13,5 +13,5 @@
       <logo>Plugin vendor logo URL</logo>
     </vendor>
   </info>
-  <deployment use-separate-classloader="true" />
+  <deployment node-responsibilities-aware="true" use-separate-classloader="true" />
 </teamcity-plugin>
